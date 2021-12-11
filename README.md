@@ -4,13 +4,7 @@
 [![Deploy](https://github.com/badsyntax/github-action-aws-cloudfront/actions/workflows/deploy.yml/badge.svg)](https://github.com/badsyntax/github-action-aws-cloudfront/actions/workflows/deploy.yml)
 [![CodeQL](https://github.com/badsyntax/github-action-aws-cloudfront/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/badsyntax/github-action-aws-cloudfront/actions/workflows/codeql-analysis.yml)
 
-## Motivation
-
-I need a quick and easy way to invalidate a list of paths.
-
-## Features
-
-- Invalidate paths
+A GitHub Action to invalidate a list of CloudFront paths.
 
 ## Getting Started
 
@@ -24,19 +18,14 @@ concurrency:
   cancel-in-progress: false
 
 on:
-  repository_dispatch:
-  workflow_dispatch:
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
-    name: 'Deploy'
+    name: 'Invalidate Cache'
     runs-on: ubuntu-20.04
-    if: github.actor != 'dependabot[bot]' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     steps:
       - uses: actions/checkout@v2
 
