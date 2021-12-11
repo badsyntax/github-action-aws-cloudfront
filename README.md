@@ -12,11 +12,6 @@ I need a quick and easy way to invalidate a list of paths.
 
 - Invalidate paths
 
-## Related Projects
-
-- <https://github.com/badsyntax/github-action-aws-cloudformation>
-- <https://github.com/badsyntax/github-action-aws-s3>
-
 ## Getting Started
 
 Please read: <https://github.com/aws-actions/configure-aws-credentials#credentials>
@@ -148,6 +143,11 @@ jobs:
           invalidatePaths: ${{ steps.sync-html-s3.outputs.S3SyncedFiles }}
           defaultRootObject: 'index.html'
 ```
+
+## Related Projects
+
+- [github-action-aws-cloudformation](https://github.com/badsyntax/github-action-aws-cloudformation)
+- [github-action-aws-s3](https://github.com/badsyntax/github-action-aws-s3)
 
 ## Debugging
 
