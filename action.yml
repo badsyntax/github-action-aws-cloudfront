@@ -1,0 +1,27 @@
+name: 'AWS CloudFormation'
+description: 'Invalidated CloudFormation Cache'
+author: 'Richard Willis <willis.rh@gmail.com>'
+branding:
+  icon: 'upload-cloud'
+  color: 'gray-dark'
+inputs:
+  invalidatePaths:
+    required: false
+    default: ''
+    description: 'Comma separated list of invalidation paths. For example: root/blog.html,root/index.html'
+  distributionId:
+    required: true
+    description: 'The CloudFront Distribution Id'
+  originPrefix:
+    required: false
+    default: ''
+    description: 'The prefix of the object location in origin, which will be stripped from the invalidation paths. For example if originPrefix is "root" and invalidationPath is "root/blog.html" then the final path will be "blog.html"'
+  defaultRootObject:
+    required: true
+    description: 'The specific object return when a user requests the root URL for your distribution. If this path is invalidated then a slash (/) is added to the invalidation paths'
+  awsRegion:
+    require: true
+    description: 'The AWS region. For example: us-east-1'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
