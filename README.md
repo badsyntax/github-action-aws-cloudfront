@@ -1,5 +1,9 @@
 # AWS CloudFront GitHub Action
 
+[![Build & Test](https://github.com/badsyntax/github-action-aws-cloudfront/actions/workflows/test.yml/badge.svg)](https://github.com/badsyntax/github-action-aws-cloudfront/actions/workflows/test.yml)
+[![Deploy](https://github.com/badsyntax/github-action-aws-cloudfront/actions/workflows/deploy.yml/badge.svg)](https://github.com/badsyntax/github-action-aws-cloudfront/actions/workflows/deploy.yml)
+[![CodeQL](https://github.com/badsyntax/github-action-aws-cloudfront/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/badsyntax/github-action-aws-cloudfront/actions/workflows/codeql-analysis.yml)
+
 ## Motivation
 
 I need a quick and easy way to invalidate a list of paths.
