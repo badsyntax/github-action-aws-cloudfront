@@ -77,12 +77,3 @@ jobs:
           originPrefix: 'root'
           invalidatePaths: ${{ steps.sync-html-s3.outputs.S3SyncedFiles }}
           defaultRootObject: 'index.html'
-
-      # - name: Output Synced Files
-      #   run: |
-      #     echo "Synced HTML Files: $S3SyncedHTMLFiles"
-      #     echo "Synced Immutable Files: $S3SyncedImmutableFiles"
-      #   env:
-      #     # Use outputs from the S3 step
-      #     S3SyncedHTMLFiles: ${{ steps.sync-html-s3.outputs.S3SyncedFiles }}
-      #     S3SyncedImmutableFiles: ${{ steps.sync-immutable-s3.outputs.S3SyncedFiles }}
