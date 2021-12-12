@@ -39,9 +39,6 @@ export function getSanitisedInvalidationPaths(
   defaultRootObject: string, // eg 'index.html'
   includeOriginPrefix: boolean
 ): string[] {
-  const defaultRootObjectWithoutExtension = defaultRootObject
-    .split('.')
-    .shift();
   const paths = invalidatePaths
     .map((path) => {
       if (!path.startsWith('/')) {
@@ -62,9 +59,8 @@ export function getSanitisedInvalidationPaths(
     })
     .flat()
     .map((path) => {
-      const lastSegment = path.split('/').pop();
-      if (lastSegment === defaultRootObject) {
-        return [path, `${path}/`.replace(`/${defaultRootObject}`, '')];
+      if (path === `/${defaultRootObject}`) {
+        return [path, '/'];
       }
       return path;
     })

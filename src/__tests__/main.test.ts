@@ -52,7 +52,6 @@ describe('getSanitisedInvalidationPaths', () => {
       '/index',
       '/',
       '/root/index',
-      '/root/',
       '/css/styles.css',
       '/root/css/styles.css',
     ]);
