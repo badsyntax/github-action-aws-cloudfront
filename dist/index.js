@@ -40777,9 +40777,6 @@ function getSanitisedInvalidationPaths(invalidatePaths, // eg ['/root/index', 'r
 originPrefix, // eg root
 defaultRootObject, // eg 'index.html'
 includeOriginPrefix) {
-    const defaultRootObjectWithoutExtension = defaultRootObject
-        .split('.')
-        .shift();
     const paths = invalidatePaths
         .map((path) => {
         if (!path.startsWith('/')) {
@@ -40801,9 +40798,8 @@ includeOriginPrefix) {
     })
         .flat()
         .map((path) => {
-        const lastSegment = path.split('/').pop();
-        if (lastSegment === defaultRootObject) {
-            return [path, `${path}/`.replace(`/${defaultRootObject}`, '')];
+        if (path === `/${defaultRootObject}`) {
+            return [path, '/'];
         }
         return path;
     })
