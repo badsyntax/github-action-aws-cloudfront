@@ -2,13 +2,11 @@ import { describe, it, expect } from '@jest/globals';
 import { getSanitisedInvalidationPaths } from '../cloudfront';
 
 describe('getSanitisedInvalidationPaths', () => {
-  const defaultRootObject = 'index.html';
-
   it('should generate correct sanitised paths', () => {
     const objectKeyWithoutExtension = getSanitisedInvalidationPaths(
       ['index.html', 'blog.html', 'css/styles.css'],
       '',
-      defaultRootObject,
+      'index.html',
       false
     );
     expect(objectKeyWithoutExtension).toEqual([
@@ -23,7 +21,7 @@ describe('getSanitisedInvalidationPaths', () => {
     const objectKeyWithoutExtension = getSanitisedInvalidationPaths(
       ['root/index', '/root/css/styles.css', '/'],
       'root',
-      defaultRootObject,
+      'index',
       false
     );
     expect(objectKeyWithoutExtension).toEqual([
@@ -37,7 +35,7 @@ describe('getSanitisedInvalidationPaths', () => {
     const objectKeyWithoutExtension = getSanitisedInvalidationPaths(
       [],
       'root',
-      defaultRootObject,
+      'index.html',
       false
     );
     expect(objectKeyWithoutExtension).toEqual([]);
@@ -45,15 +43,16 @@ describe('getSanitisedInvalidationPaths', () => {
 
   it('should generate correct sanitised paths including origin prefix', () => {
     const objectKeyWithoutExtension = getSanitisedInvalidationPaths(
-      ['root/index', '/root/css/styles.css', '/'],
+      ['root/index', 'root/css/styles.css', '/'],
       'root',
-      defaultRootObject,
+      'index',
       true
     );
     expect(objectKeyWithoutExtension).toEqual([
       '/index',
       '/',
       '/root/index',
+      '/root/',
       '/css/styles.css',
       '/root/css/styles.css',
     ]);

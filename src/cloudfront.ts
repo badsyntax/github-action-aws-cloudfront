@@ -62,12 +62,9 @@ export function getSanitisedInvalidationPaths(
     })
     .flat()
     .map((path) => {
-      const lowerCasePath = path.toLowerCase();
-      if (
-        lowerCasePath === `/${defaultRootObjectWithoutExtension}` ||
-        lowerCasePath === `/${defaultRootObject}`
-      ) {
-        return [path, '/'];
+      const lastSegment = path.split('/').pop();
+      if (lastSegment === defaultRootObject) {
+        return [path, `${path}/`.replace(`/${defaultRootObject}`, '')];
       }
       return path;
     })
