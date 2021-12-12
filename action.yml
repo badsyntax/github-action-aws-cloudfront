@@ -1,5 +1,5 @@
-name: 'AWS CloudFormation'
-description: 'Invalidated CloudFormation Cache'
+name: 'AWS CloudFront Invalidate'
+description: 'Invalidate CloudFormation Cache based on paths'
 author: 'Richard Willis <willis.rh@gmail.com>'
 branding:
   icon: 'upload-cloud'
