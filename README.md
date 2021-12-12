@@ -59,7 +59,11 @@ jobs:
 | `defaultRootObject`   | The object returned when a user requests the root URL for your distribution. If this path is invalidated then a slash (/) is added to the invalidation paths                                                                                                          | `index.html`                     |
 | `awsRegion`           | The AWS region                                                                                                                                                                                                                                                        | `us-east-1`                      |
 
-## Related Projects
+## Cache Invalidation Gotchas
+
+If you've specified the distribution `OriginPath` then this path must not exist in the invalidation path.
+
+## Related GitHub Actions
 
 - [badsyntax/github-action-aws-cloudformation](https://github.com/badsyntax/github-action-aws-cloudformation)
 - [badsyntax/github-action-aws-s3](https://github.com/badsyntax/github-action-aws-s3)
