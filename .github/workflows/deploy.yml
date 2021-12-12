@@ -33,15 +33,15 @@ jobs:
         id: update-stack
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          stackName: 'static-example-richardwillis-cloudformation-stack'
-          template: './cloudformation/cloudformation-s3bucket-example.yml'
+          stackName: 'badsyntax-github-action-example-aws-cloudfront'
+          template: './cloudformation/s3-cloudfront.yml'
           applyChangeSet: ${{ github.event_name != 'repository_dispatch' }}
           awsRegion: 'us-east-1'
           parameters: |
-            S3BucketName=static-example-richardwillis-info-us-east-1&
-            S3AllowedOrigins=https://static-example.richardwillis.info,https://*.preview.static-example.richardwillis.info&
-            CloudFrontRootHosts=static-example.richardwillis.info&
-            CertificateARN=arn:aws:acm:us-east-1:008215002370:certificate/39df7626-7d2f-42e9-94f4-a3ce61ca3d5e
+            S3BucketName=badsyntax-github-action-example-aws-cloudfront-us-east-1&
+            S3AllowedOrigins=https://cloudfront-action.richardwillis.info&
+            CloudFrontRootHosts=cloudfront-action.richardwillis.info&
+            CertificateARN=arn:aws:acm:us-east-1:008215002370:certificate/cfb34309-b9bb-4f63-9af3-51026b8107d6
 
       - uses: badsyntax/github-action-aws-s3@9537cd6d2013140b1d4e11ff526c5d75084c01df
         name: Sync mutable HTML files to S3
@@ -76,4 +76,5 @@ jobs:
           awsRegion: 'us-east-1'
           originPrefix: 'root'
           invalidatePaths: ${{ steps.sync-html-s3.outputs.S3SyncedFiles }}
-          defaultRootObject: 'index.html'
+          defaultRootObject: 'index'
+          includeOriginPrefix: true

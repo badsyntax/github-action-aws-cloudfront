@@ -8,7 +8,8 @@ describe('getSanitisedInvalidationPaths', () => {
     const objectKeyWithoutExtension = getSanitisedInvalidationPaths(
       ['index.html', 'blog.html', 'css/styles.css'],
       '',
-      defaultRootObject
+      defaultRootObject,
+      false
     );
     expect(objectKeyWithoutExtension).toEqual([
       '/index.html',
@@ -22,7 +23,8 @@ describe('getSanitisedInvalidationPaths', () => {
     const objectKeyWithoutExtension = getSanitisedInvalidationPaths(
       ['root/index', '/root/css/styles.css', '/'],
       'root',
-      defaultRootObject
+      defaultRootObject,
+      false
     );
     expect(objectKeyWithoutExtension).toEqual([
       '/index',
@@ -35,8 +37,25 @@ describe('getSanitisedInvalidationPaths', () => {
     const objectKeyWithoutExtension = getSanitisedInvalidationPaths(
       [],
       'root',
-      defaultRootObject
+      defaultRootObject,
+      false
     );
     expect(objectKeyWithoutExtension).toEqual([]);
+  });
+
+  it('should generate correct sanitised paths including origin prefix', () => {
+    const objectKeyWithoutExtension = getSanitisedInvalidationPaths(
+      ['root/index', '/root/css/styles.css', '/'],
+      'root',
+      defaultRootObject,
+      true
+    );
+    expect(objectKeyWithoutExtension).toEqual([
+      '/index',
+      '/',
+      '/root/index',
+      '/css/styles.css',
+      '/root/css/styles.css',
+    ]);
   });
 });

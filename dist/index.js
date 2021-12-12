@@ -40775,8 +40775,8 @@ async function waitForInvalidationToComplete(client, distributionId, invalidatio
 }
 function getSanitisedInvalidationPaths(invalidatePaths, // eg ['/root/index', 'root/css/styles.css']
 originPrefix, // eg root
-defaultRootObject // eg 'index.html'
-) {
+defaultRootObject, // eg 'index.html'
+includeOriginPrefix) {
     const defaultRootObjectWithoutExtension = defaultRootObject
         .split('.')
         .shift();
@@ -40789,10 +40789,17 @@ defaultRootObject // eg 'index.html'
     })
         .map((path) => {
         if (originPrefix) {
-            return path.replace(`/${originPrefix}`, '');
+            const pathWithoutOrigin = path.replace(`/${originPrefix}`, '');
+            if (includeOriginPrefix) {
+                return [pathWithoutOrigin, path];
+            }
+            else {
+                return pathWithoutOrigin;
+            }
         }
         return path;
     })
+        .flat()
         .map((path) => {
         const lowerCasePath = path.toLowerCase();
         if (lowerCasePath === `/${defaultRootObjectWithoutExtension}` ||
@@ -40854,12 +40861,17 @@ function getInputs() {
         required: true,
         trimWhitespace: true,
     });
+    const includeOriginPrefix = (0,core.getInput)('includeOriginPrefix', {
+        required: true,
+        trimWhitespace: true,
+    }).toLowerCase() === 'true';
     return {
         invalidatePaths,
         distributionId,
         region,
         originPrefix,
         defaultRootObject,
+        includeOriginPrefix,
     };
 }
 
@@ -40875,7 +40887,7 @@ async function run() {
         const cloudFrontClient = new dist_cjs.CloudFrontClient({
             region: inputs.region,
         });
-        const sanitisedInvalidatePaths = getSanitisedInvalidationPaths(inputs.invalidatePaths.split(',').filter(Boolean), inputs.originPrefix, inputs.defaultRootObject);
+        const sanitisedInvalidatePaths = getSanitisedInvalidationPaths(inputs.invalidatePaths.split(',').filter(Boolean), inputs.originPrefix, inputs.defaultRootObject, inputs.includeOriginPrefix);
         await invalidateCloudFrontCacheWithPaths(cloudFrontClient, inputs.distributionId, sanitisedInvalidatePaths);
     }
     catch (error) {

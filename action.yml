@@ -18,10 +18,13 @@ inputs:
     description: 'The prefix of the object location in origin, which will be stripped from the invalidation paths. For example if originPrefix is "root" and invalidationPath is "root/blog.html" then the final path will be "blog.html"'
   defaultRootObject:
     required: true
-    description: 'The specific object return when a user requests the root URL for your distribution. If this path is invalidated then a slash (/) is added to the invalidation paths'
+    description: 'The object returned when a user requests the root URL for your distribution. If this path is invalidated then a slash (/) is added to the invalidation paths'
   awsRegion:
     require: true
     description: 'The AWS region. For example: us-east-1'
+  includeOriginPrefix:
+    require: true
+    description: "Whether to include origin prefix paths. Useful when paths ere rewritten by Lambda's"
 runs:
   using: 'node16'
   main: 'dist/index.js'

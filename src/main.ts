@@ -20,7 +20,8 @@ export async function run(): Promise<void> {
     const sanitisedInvalidatePaths = getSanitisedInvalidationPaths(
       inputs.invalidatePaths.split(',').filter(Boolean),
       inputs.originPrefix,
-      inputs.defaultRootObject
+      inputs.defaultRootObject,
+      inputs.includeOriginPrefix
     );
 
     await invalidateCloudFrontCacheWithPaths(
