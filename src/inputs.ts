@@ -28,11 +28,18 @@ export function getInputs() {
     trimWhitespace: true,
   });
 
+  const includeOriginPrefix =
+    getInput('includeOriginPrefix', {
+      required: true,
+      trimWhitespace: true,
+    }).toLowerCase() === 'true';
+
   return {
     invalidatePaths,
     distributionId,
     region,
     originPrefix,
     defaultRootObject,
+    includeOriginPrefix,
   };
 }

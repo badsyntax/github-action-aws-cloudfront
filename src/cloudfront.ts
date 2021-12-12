@@ -36,7 +36,8 @@ async function waitForInvalidationToComplete(
 export function getSanitisedInvalidationPaths(
   invalidatePaths: string[], // eg ['/root/index', 'root/css/styles.css']
   originPrefix: string, // eg root
-  defaultRootObject: string // eg 'index.html'
+  defaultRootObject: string, // eg 'index.html'
+  includeOriginPrefix: boolean
 ): string[] {
   const defaultRootObjectWithoutExtension = defaultRootObject
     .split('.')
@@ -50,10 +51,16 @@ export function getSanitisedInvalidationPaths(
     })
     .map((path) => {
       if (originPrefix) {
-        return path.replace(`/${originPrefix}`, '');
+        const pathWithoutOrigin = path.replace(`/${originPrefix}`, '');
+        if (includeOriginPrefix) {
+          return [pathWithoutOrigin, path];
+        } else {
+          return pathWithoutOrigin;
+        }
       }
       return path;
     })
+    .flat()
     .map((path) => {
       const lowerCasePath = path.toLowerCase();
       if (

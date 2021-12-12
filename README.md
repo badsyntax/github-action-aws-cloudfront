@@ -43,14 +43,26 @@ jobs:
           distributionId: ${{ secrets.CFDistributionId }}
           awsRegion: 'us-east-1'
           originPrefix: 'root'
+          includeOriginPrefix: true
           invalidatePaths: '/index.html,/'
           defaultRootObject: 'index.html'
 ```
 
+## Action Inputs
+
+| key                   | description                                                                                                                                                                                                                                                           | example                          |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| `invalidatePaths`     | Comma separated list of invalidation paths                                                                                                                                                                                                                            | `root/blog.html,root/index.html` |
+| `distributionId`      | The CloudFront Distribution Id                                                                                                                                                                                                                                        | `ABC123DEF`                      |
+| `originPrefix`        | The prefix of the object location in origin, which will be optionally stripped from the invalidation paths, if `includeOriginPrefix` is false. For example if originPrefix is "root" and invalidationPath is "root/blog.html" then the final path will be "blog.html" | `root`                           |
+| `includeOriginPrefix` | Whether to include origin prefix paths. Useful when paths ere rewritten by Lambda's                                                                                                                                                                                   | `true`                           |
+| `defaultRootObject`   | The object returned when a user requests the root URL for your distribution. If this path is invalidated then a slash (/) is added to the invalidation paths                                                                                                          | `index.html`                     |
+| `awsRegion`           | The AWS region                                                                                                                                                                                                                                                        | `us-east-1`                      |
+
 ## Related Projects
 
-- [github-action-aws-cloudformation](https://github.com/badsyntax/github-action-aws-cloudformation)
-- [github-action-aws-s3](https://github.com/badsyntax/github-action-aws-s3)
+- [badsyntax/github-action-aws-cloudformation](https://github.com/badsyntax/github-action-aws-cloudformation)
+- [badsyntax/github-action-aws-s3](https://github.com/badsyntax/github-action-aws-s3)
 
 ## Debugging
 
