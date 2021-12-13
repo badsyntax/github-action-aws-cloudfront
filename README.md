@@ -6,6 +6,16 @@
 
 A GitHub Action to invalidate a list of CloudFront paths.
 
+The Action will generate a new list based on input options. This is especially helpful when you're piping in origin paths (eg from an S3 Action) that need to be transformed into absolute URL paths from root. You can also include origin prefixes to cache-bust URL rewritten by lambda's (in which case you need to invalidate both `viewer-request` URL's and rewritten URL's). A root slash `/` is added if a url matches the `defaultRootObject`.
+
+## Example Path Transformations
+
+| input                                 | prefix   | includeOriginPrefix | defaultRootObject | output                                                      |
+| ------------------------------------- | -------- | ------------------- | ----------------- | ----------------------------------------------------------- |
+| `index.html,blog.html,css/styles.css` | `(none)` | `false`             | `index.html`      | `/index.html,/blog.html,/css/styles.css,/`                  |
+| `root/index,/root/css/styles.css,/`   | `root`   | `false`             | `index`           | `/index,/css/styles.css,/`                                  |
+| `root/index,root/css/styles.css`      | `root`   | `true`              | `index`           | `/index,/root/index,/css/styles.css,/root/css/styles.css,/` |
+
 ## Getting Started
 
 Please read: <https://github.com/aws-actions/configure-aws-credentials#credentials>
