@@ -6,7 +6,7 @@
 
 A GitHub Action to invalidate a list of CloudFront paths.
 
-The Action will generate a new list based on input options. This is especially helpful when you're piping in origin paths (eg from an S3 Action) that need to be transformed into absolute URL paths from root. You can also include origin prefixes to cache-bust URL rewritten by lambda's (in which case you need to invalidate both `viewer-request` URL's and rewritten URL's). A root slash `/` is added if a url matches the `defaultRootObject`.
+The Action will generate a new list based on input options. This is especially helpful when you're piping in origin paths (eg from an S3 Action) that need to be transformed into absolute URL paths from root. You can also include origin prefixes to cache-bust URL's rewritten by Lambda's (in which case you need to invalidate both the `viewer-request` and rewritten URL's). A root slash `/` is added if a url matches the `defaultRootObject`.
 
 ## Example Path Transformations
 
