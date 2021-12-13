@@ -46,7 +46,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - uses: badsyntax/github-action-aws-cloudfront@v0.0.1
+      - uses: badsyntax/github-action-aws-cloudfront@v0.0.2
         name: Invalidate CloudFront Cache
         id: invalidate-cloudfront-cache
         with:
