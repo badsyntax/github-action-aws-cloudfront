@@ -28,7 +28,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - uses: badsyntax/github-action-aws-cloudformation@c34b4e31a9ef47673f50792ea8bd4dba7abf6fec
+      - uses: badsyntax/github-action-aws-cloudformation@v0.0.2
         name: Update CloudFormation Stack
         id: update-stack
         with:
@@ -43,7 +43,7 @@ jobs:
             CloudFrontRootHosts=cloudfront-action.richardwillis.info&
             CertificateARN=arn:aws:acm:us-east-1:008215002370:certificate/cfb34309-b9bb-4f63-9af3-51026b8107d6
 
-      - uses: badsyntax/github-action-aws-s3@1484cceff7191d27fde60397bea4fc2dbbcb063a
+      - uses: badsyntax/github-action-aws-s3@v0.0.1
         name: Sync mutable HTML files to S3
         id: sync-html-s3
         with:
@@ -56,7 +56,7 @@ jobs:
           stripExtensionGlob: '**/**.html'
           cacheControl: 'public,max-age=0,s-maxage=31536000,must-revalidate'
 
-      - uses: badsyntax/github-action-aws-s3@1484cceff7191d27fde60397bea4fc2dbbcb063a
+      - uses: badsyntax/github-action-aws-s3@v0.0.1
         name: Sync immutable files to S3
         id: sync-immutable-s3
         with:
