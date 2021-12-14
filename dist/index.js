@@ -40836,27 +40836,27 @@ async function invalidateCloudFrontCacheWithPaths(client, distributionId, paths)
 ;// CONCATENATED MODULE: ./lib/inputs.js
 
 function getInputs() {
-    const invalidatePaths = (0,core.getInput)('invalidatePaths', {
+    const invalidatePaths = (0,core.getInput)('invalidate-paths', {
         required: false,
         trimWhitespace: true,
     }) || '';
-    const distributionId = (0,core.getInput)('distributionId', {
+    const distributionId = (0,core.getInput)('distribution-id', {
         required: true,
         trimWhitespace: true,
     });
-    const originPrefix = (0,core.getInput)('originPrefix', {
+    const originPrefix = (0,core.getInput)('origin-prefix', {
         required: false,
         trimWhitespace: true,
     }) || '';
-    const defaultRootObject = (0,core.getInput)('defaultRootObject', {
+    const defaultRootObject = (0,core.getInput)('default-root-object', {
         required: true,
         trimWhitespace: true,
     });
-    const region = (0,core.getInput)('awsRegion', {
+    const region = (0,core.getInput)('aws-region', {
         required: true,
         trimWhitespace: true,
     });
-    const includeOriginPrefix = (0,core.getInput)('includeOriginPrefix', {
+    const includeOriginPrefix = (0,core.getInput)('include-origin-prefix', {
         required: true,
         trimWhitespace: true,
     }).toLowerCase() === 'true';

@@ -5,24 +5,24 @@ branding:
   icon: 'upload-cloud'
   color: 'gray-dark'
 inputs:
-  invalidatePaths:
+  invalidate-paths:
     required: false
     default: ''
     description: 'Comma separated list of invalidation paths. For example: root/blog.html,root/index.html'
-  distributionId:
+  distribution-id:
     required: true
     description: 'The CloudFront Distribution Id'
-  originPrefix:
+  origin-prefix:
     required: false
     default: ''
-    description: 'The prefix of the object location in origin, which will be stripped from the invalidation paths. For example if originPrefix is "root" and invalidationPath is "root/blog.html" then the final path will be "blog.html"'
-  defaultRootObject:
+    description: 'The prefix of the object location in origin, which will be stripped from the invalidation paths. For example if origin-prefix is "root" and invalidationPath is "root/blog.html" then the final path will be "blog.html"'
+  default-root-object:
     required: true
     description: 'The object returned when a user requests the root URL for your distribution. If this path is invalidated then a slash (/) is added to the invalidation paths'
-  awsRegion:
+  aws-region:
     require: true
     description: 'The AWS region. For example: us-east-1'
-  includeOriginPrefix:
+  include-origin-prefix:
     require: true
     description: "Whether to include origin prefix paths. Useful when paths ere rewritten by Lambda's"
 runs:
