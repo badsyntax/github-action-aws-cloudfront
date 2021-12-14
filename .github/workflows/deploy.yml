@@ -28,53 +28,52 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - uses: badsyntax/github-action-aws-cloudformation@v0.0.3
+      - uses: badsyntax/github-action-aws-cloudformation@v0.0.5
         name: Update CloudFormation Stack
         id: update-stack
         with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          stackName: 'badsyntax-github-action-example-aws-cloudfront'
+          stack-name: 'badsyntax-github-action-example-aws-cloudfront'
           template: './cloudformation/s3-cloudfront.yml'
-          applyChangeSet: ${{ github.event_name != 'repository_dispatch' }}
-          awsRegion: 'us-east-1'
+          apply-change-set: ${{ github.event_name != 'repository_dispatch' }}
+          aws-region: 'us-east-1'
           parameters: |
             S3BucketName=badsyntax-github-action-example-aws-cloudfront-us-east-1&
             S3AllowedOrigins=https://cloudfront-action.richardwillis.info&
             CloudFrontRootHosts=cloudfront-action.richardwillis.info&
             CertificateARN=arn:aws:acm:us-east-1:008215002370:certificate/cfb34309-b9bb-4f63-9af3-51026b8107d6
 
-      - uses: badsyntax/github-action-aws-s3@v0.0.2
+      - uses: badsyntax/github-action-aws-s3@v0.0.3
         name: Sync mutable HTML files to S3
         id: sync-html-s3
         with:
           bucket: ${{ steps.update-stack.outputs.S3BucketName }}
           action: 'sync'
-          srcDir: './out'
-          filesGlob: '**/*.html'
-          awsRegion: 'us-east-1'
+          src-dir: './out'
+          files-glob: '**/*.html'
+          aws-region: 'us-east-1'
           prefix: 'root'
-          stripExtensionGlob: '**/**.html'
-          cacheControl: 'public,max-age=0,s-maxage=31536000,must-revalidate'
+          strip-extension-glob: '**/**.html'
+          cache-control: 'public,max-age=0,s-maxage=31536000,must-revalidate'
 
-      - uses: badsyntax/github-action-aws-s3@v0.0.2
+      - uses: badsyntax/github-action-aws-s3@v0.0.3
         name: Sync immutable files to S3
         id: sync-immutable-s3
         with:
           bucket: ${{ steps.update-stack.outputs.S3BucketName }}
           action: 'sync'
-          srcDir: './out'
-          filesGlob: 'css/**'
-          awsRegion: 'us-east-1'
+          src-dir: './out'
+          files-glob: 'css/**'
+          aws-region: 'us-east-1'
           prefix: 'root'
-          cacheControl: 'public,max-age=31536000,immutable'
+          cache-control: 'public,max-age=31536000,immutable'
 
       - uses: ./
         name: Invalidate CloudFront Cache
         id: invalidate-cloudfront-cache
         with:
-          distributionId: ${{ steps.update-stack.outputs.CFDistributionId }}
-          awsRegion: 'us-east-1'
-          originPrefix: 'root'
-          invalidatePaths: ${{ steps.sync-html-s3.outputs.S3SyncedFiles }}
-          defaultRootObject: 'index'
-          includeOriginPrefix: true
+          distribution-id: ${{ steps.update-stack.outputs.CFDistributionId }}
+          aws-region: 'us-east-1'
+          origin-prefix: 'root'
+          invalidate-paths: ${{ steps.sync-html-s3.outputs.S3SyncedFiles }}
+          default-root-object: 'index'
+          include-origin-prefix: true

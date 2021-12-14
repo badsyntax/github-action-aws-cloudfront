@@ -2,34 +2,34 @@ import { getInput } from '@actions/core';
 
 export function getInputs() {
   const invalidatePaths =
-    getInput('invalidatePaths', {
+    getInput('invalidate-paths', {
       required: false,
       trimWhitespace: true,
     }) || '';
 
-  const distributionId = getInput('distributionId', {
+  const distributionId = getInput('distribution-id', {
     required: true,
     trimWhitespace: true,
   });
 
   const originPrefix =
-    getInput('originPrefix', {
+    getInput('origin-prefix', {
       required: false,
       trimWhitespace: true,
     }) || '';
 
-  const defaultRootObject = getInput('defaultRootObject', {
+  const defaultRootObject = getInput('default-root-object', {
     required: true,
     trimWhitespace: true,
   });
 
-  const region = getInput('awsRegion', {
+  const region = getInput('aws-region', {
     required: true,
     trimWhitespace: true,
   });
 
   const includeOriginPrefix =
-    getInput('includeOriginPrefix', {
+    getInput('include-origin-prefix', {
       required: true,
       trimWhitespace: true,
     }).toLowerCase() === 'true';
