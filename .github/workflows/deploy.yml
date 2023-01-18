@@ -42,7 +42,7 @@ jobs:
             CloudFrontRootHosts=cloudfront-action.richardwillis.info&
             CertificateARN=arn:aws:acm:us-east-1:008215002370:certificate/cfb34309-b9bb-4f63-9af3-51026b8107d6
 
-      - uses: badsyntax/github-action-aws-s3@v1.0.1
+      - uses: badsyntax/github-action-aws-s3@v1.0.2
         name: Sync mutable HTML files to S3
         id: sync-html-s3
         with:
@@ -55,7 +55,7 @@ jobs:
           strip-extension-glob: '**/**.html'
           cache-control: 'public,max-age=0,s-maxage=31536000,must-revalidate'
 
-      - uses: badsyntax/github-action-aws-s3@v1.0.1
+      - uses: badsyntax/github-action-aws-s3@v1.0.2
         name: Sync immutable files to S3
         id: sync-immutable-s3
         with:
